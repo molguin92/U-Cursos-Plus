@@ -23,36 +23,57 @@ for(var i = 0, max = all.length; i < max; i++){
 	|| href.substr(len - 5) == ".jpeg"
 	|| href.substr(len - 4) == ".png"
 	|| href.substr(len - 4) == ".gif"){
+		
+		var div = document.createElement("div");
+		div.setAttribute("class", "imagen");
+		
 
-	    var img = document.createElement("img");
-	    img.setAttribute("src", href);
-	    
-	    parent.appendChild(img);
+		var img = document.createElement("img");
+		img.setAttribute("src", href);
+		img.setAttribute("style", "max-width:400px; max-height:400px");
+		
+		var lastItem = all[i].nextSibling;
+		while(lastItem.nextSibling != null){
+			lastItem = lastItem.nextSibling;
+		}
+		
+		div.appendChild(img);
+		parent.insertBefore(div, lastItem.previousSibling);
 	}
     
-    else if //Videos
-    (href.substr(0, 28) == "http://www.youtube.com/watch"
-    || href.substr(0, 29) == "https://www.youtube.com/watch"
-    || href.substr(0, 15) == "http://youtu.be"){
+	else if //Videos
+	(href.substr(0, 28) == "http://www.youtube.com/watch"
+	|| href.substr(0, 29) == "https://www.youtube.com/watch"
+	|| href.substr(0, 15) == "http://youtu.be"){
 	    
-	    var iframe = document.createElement("iframe");
-	    iframe.setAttribute("width", "560");
-	    iframe.setAttribute("height", "315");
+		var div = document.createElement("div");
+		div.setAttribute("class", "video");
 	    
-	    var vCode = 0;
+		var iframe = document.createElement("iframe");
+		iframe.setAttribute("width", "560");
+		iframe.setAttribute("height", "315");
 	    
-	    if(href.substr(0, 28) == "http://www.youtube.com/watch"){
-		    vCode =  href.substr(31);
-	    } else if (href.substr(0, 29) == "https://www.youtube.com/watch"){
-		    vCode = href.substr(32);
-	    } else {
-		    vCode = href.substr(16);
-	    }
+		var vCode = 0;
 	    
-	    iframe.setAttribute("src", "https://youtube.com/embed/".concat(vCode));
-	    iframe.setAttribute("frameborder", "0");
-	    iframe.setAttribute("allowfullscreen", "1");
+		if(href.substr(0, 28) == "http://www.youtube.com/watch"){
+			vCode =  href.substr(31);
+		} else if (href.substr(0, 29) == "https://www.youtube.com/watch"){
+			vCode = href.substr(32);
+		} else {
+			vCode = href.substr(16);
+		}
 	    
-	    parent.appendChild(iframe);
-    }	    
+		iframe.setAttribute("src", "https://youtube.com/embed/".concat(vCode));
+		iframe.setAttribute("frameborder", "0");
+		iframe.setAttribute("allowfullscreen", "1");
+	    
+		var lastItem = all[i].nextSibling;
+		while(lastItem.nextSibling != null){
+			lastItem = lastItem.nextSibling;
+		}
+		
+		div.appendChild(iframe);
+		parent.insertBefore(div, lastItem.previousSibling);
+		
+	}	    
 }
