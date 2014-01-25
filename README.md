@@ -11,3 +11,6 @@ Contacto: molguin@dcc.uchile.cl
 Version 1:
 - Primera version rudimentaria.
 - Busca enlaces a imagenes y las inserta en la pagina.
+
+Version 1.1
+- Se agrega insercion de videos de YouTube.
