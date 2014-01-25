@@ -1,3 +1,10 @@
+/* 
+Script encargado de buscar enlaces a imagenes en la pagina e insertarlas 
+Parte de la extension U-Cursos +.
+
+Autor: Arachnid92
+*/
+
 var all = document.getElementsByTagName("*");
 
 for(var i = 0, max = all.length; i < max; i++){
