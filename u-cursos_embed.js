@@ -7,11 +7,13 @@ Autor: Arachnid92
 
 var all = document.getElementsByTagName("a");
 
-for(var i = 0, max = all.length; i < max; i++){
+for(var i = 0, max = all.length; i < max; i++)
+{
 	
 	var href = all[i].getAttribute("href");
 	
-	if(href == null){
+	if(href == null)
+	{
 		continue;
 	}
 	
@@ -22,7 +24,8 @@ for(var i = 0, max = all.length; i < max; i++){
 	(href.substr(len - 4) == ".jpg"
 	|| href.substr(len - 5) == ".jpeg"
 	|| href.substr(len - 4) == ".png"
-	|| href.substr(len - 4) == ".gif"){
+	|| href.substr(len - 4) == ".gif")
+	{
 		
 		var div = document.createElement("div");
 		div.setAttribute("class", "imagen");
@@ -33,7 +36,8 @@ for(var i = 0, max = all.length; i < max; i++){
 		img.setAttribute("style", "max-width:400px; max-height:400px");
 		
 		var lastItem = all[i].nextSibling;
-		while(lastItem.nextSibling != null){
+		while(lastItem.nextSibling != null)
+		{
 			lastItem = lastItem.nextSibling;
 		}
 		
@@ -44,7 +48,8 @@ for(var i = 0, max = all.length; i < max; i++){
 	else if //Videos
 	(href.substr(0, 28) == "http://www.youtube.com/watch"
 	|| href.substr(0, 29) == "https://www.youtube.com/watch"
-	|| href.substr(0, 15) == "http://youtu.be"){
+	|| href.substr(0, 15) == "http://youtu.be")
+	{
 	    
 		var div = document.createElement("div");
 		div.setAttribute("class", "video");
@@ -55,11 +60,16 @@ for(var i = 0, max = all.length; i < max; i++){
 	    
 		var vCode = 0;
 	    
-		if(href.substr(0, 28) == "http://www.youtube.com/watch"){
+		if(href.substr(0, 28) == "http://www.youtube.com/watch")
+		{
 			vCode =  href.substr(31);
-		} else if (href.substr(0, 29) == "https://www.youtube.com/watch"){
+		} 
+		else if (href.substr(0, 29) == "https://www.youtube.com/watch")
+		{
 			vCode = href.substr(32);
-		} else {
+		} 
+		else 
+		{
 			vCode = href.substr(16);
 		}
 	    
@@ -68,7 +78,8 @@ for(var i = 0, max = all.length; i < max; i++){
 		iframe.setAttribute("allowfullscreen", "1");
 	    
 		var lastItem = all[i].nextSibling;
-		while(lastItem.nextSibling != null){
+		while(lastItem.nextSibling != null)
+		{
 			lastItem = lastItem.nextSibling;
 		}
 		
