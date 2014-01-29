@@ -14,3 +14,6 @@ Version 1:
 
 Version 1.1
 - Se agrega insercion de videos de YouTube.
+
+Version 1.1.1
+- Bugfixes/formatting.
