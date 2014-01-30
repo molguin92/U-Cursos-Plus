@@ -47,17 +47,17 @@ function resizeImg(btn_id)
 	
 	if(mod == "s")
 	{
-		img.setAttribute("style", "max-width:400px; max-height:400px");
+		img.setAttribute("style", "max-width:120px; max-height:120px");
 	}
 	
 	else if(mod == "m")
 	{
-		img.setAttribute("style", "max-width:800px; max-height:800px");
+		img.setAttribute("style", "max-width:400px; max-height:400px");
 	}
 	
 	else if(mod == "l")
 	{
-		img.setAttribute("style", "max-width:1600px; max-height:1600px");
+		img.setAttribute("style", "max-width:1280px; max-height:1280px");
 	}
 }
 	
@@ -188,7 +188,7 @@ for(var i = 0, max = all.length; i < max; i++)
 		btn.type = "button";
 		btn.id = vCode + "_btn";
 		btn.onclick = function(){ expandBlock(this.id); };
-		btn.innerHTML = "Expandir/Colapsar Video";
+		btn.innerHTML = "+/-";
 		
 		//insertamos todo
 		var lastItem = all[i].nextSibling;
