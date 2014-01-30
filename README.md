@@ -19,4 +19,7 @@ Version 1.1.1
 - Bugfixes/formatting.
 
 Version 1.1.2
-- Videos ahora están colapsados por defecto, y se agrega boton para expandir/colapsar.
+- Videos ahora estan colapsados por defecto, y se agrega boton para expandir/colapsar.
+
+Version 1.1.3
+- Se agregan botones bajo las imagenes que permiten cambiar el tamaño de la imagen (agrandan solo si son mas grandes que el valor actual).

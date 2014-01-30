@@ -32,6 +32,36 @@ function expandBlock(btn_id)
 	}
 }
 
+function resizeImg(btn_id)
+{
+	
+	/*
+	funcion encargada de cambiar tamano de imagenes.
+	al igual que en la funcion anterior, recibe una id
+	de un boton y extrae la informacion necesaria de ahi
+	*/
+	
+	var mod = btn_id.substr(0,1); //modificador del boton (s, m, l)
+	var id = btn_id.substr(1, btn_id.length - 5); //id de la img
+    	var img = document.getElementById("" + id); 
+	
+	if(mod == "s")
+	{
+		img.setAttribute("style", "max-width:400px; max-height:400px");
+	}
+	
+	else if(mod == "m")
+	{
+		img.setAttribute("style", "max-width:800px; max-height:800px");
+	}
+	
+	else if(mod == "l")
+	{
+		img.setAttribute("style", "max-width:1600px; max-height:1600px");
+	}
+}
+	
+
 var all = document.getElementsByTagName("a");
 
 for(var i = 0, max = all.length; i < max; i++)
@@ -62,6 +92,42 @@ for(var i = 0, max = all.length; i < max; i++)
 		img.setAttribute("src", href);
 		img.setAttribute("style", "max-width:400px; max-height:400px");
 		
+		// a continuacion nos aseguramos de que la id sea unica
+		var id = href.substr(len - 10, len - 5); 
+		while(document.getElementById(id) != null)
+		{
+			id = id + (Math.random() * 10);
+		}
+		
+		img.setAttribute("id", "" + id);
+		
+		//botones
+		var btn_s = document.createElement("button");
+		var btn_m = document.createElement("button");
+		var btn_l = document.createElement("button");
+		
+		btn_s.type = "button";
+		btn_m.type = "button";
+		btn_l.type = "button";
+		
+		btn_s.id = "s" + id + "_btn";
+		btn_m.id = "m" + id + "_btn";
+		btn_l.id = "l" + id + "_btn";
+		
+		btn_s.onclick = function(){ resizeImg(this.id); };
+		btn_m.onclick = function(){ resizeImg(this.id); };
+		btn_l.onclick = function(){ resizeImg(this.id); };
+		
+		btn_s.innerHTML = "S";
+		btn_m.innerHTML = "M";
+		btn_l.innerHTML = "L";
+		
+		var div_btn = document.createElement("div");
+		div_btn.appendChild(btn_s);
+		div_btn.appendChild(btn_m);
+		div_btn.appendChild(btn_l);
+		
+		
 		var lastItem = all[i].nextSibling;
 		while(lastItem.nextSibling != null)
 		{
@@ -69,7 +135,8 @@ for(var i = 0, max = all.length; i < max; i++)
 		}
 		
 		div.appendChild(img);
-		parent.insertBefore(div, lastItem.previousSibling);
+		parent.insertBefore(div_btn, lastItem.previousSibling);
+		parent.insertBefore(div, div_btn);
 	}
     
 	else if //Videos
