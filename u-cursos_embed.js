@@ -5,6 +5,33 @@ Parte de la extension U-Cursos +.
 Autor: Arachnid92
 */
 
+function expandBlock(btn_id)
+{	
+	
+	//Funcion encargada de expandir y colapsar bloques de video.
+	//Recibe como parametro la id del boton que fue presionado.
+	//Luego, extrae la id del elemento a expandir/colapsar de la id
+	//del boton y ejecuta.
+	var id = btn_id.substr(0, btn_id.length - 4);
+	
+    	var div = document.getElementById("" + id);
+
+	if(div == null)
+	{
+	    	alert(id + " is null");
+	}
+
+	if(div.style.display == "block")
+	{
+	    	div.style.display = "none";
+	}
+
+	else if(div.style.display == "none")
+	{
+		div.style.display = "block";
+	}
+}
+
 var all = document.getElementsByTagName("a");
 
 for(var i = 0, max = all.length; i < max; i++)
@@ -53,6 +80,7 @@ for(var i = 0, max = all.length; i < max; i++)
 	    
 		var div = document.createElement("div");
 		div.setAttribute("class", "video");
+		div.setAttribute("style", "overflow:hidden;display:none;");
 	    
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("width", "560");
@@ -60,6 +88,7 @@ for(var i = 0, max = all.length; i < max; i++)
 	    
 		var vCode = 0;
 	    
+		//A continuacion extraemos el codigo del video del enlace:
 		if(href.substr(0, 28) == "http://www.youtube.com/watch")
 		{
 			vCode =  href.substr(31);
@@ -73,10 +102,28 @@ for(var i = 0, max = all.length; i < max; i++)
 			vCode = href.substr(16);
 		}
 	    
+		//creamos el objeto iframe necesario para insertar el video
 		iframe.setAttribute("src", "https://youtube.com/embed/".concat(vCode));
 		iframe.setAttribute("frameborder", "0");
 		iframe.setAttribute("allowfullscreen", "1");
+
+		//Aqui asignamos una id unica al contenedor del video
+		while(document.getElementById("" + vCode) != null)
+		{
+		    	vCode = vCode + (Math.random() * 1000);
+		}
+
+		div.setAttribute("id", "" + vCode);
+
 	    
+		//link para expandir:
+		var btn = document.createElement("button");
+		btn.type = "button";
+		btn.id = vCode + "_btn";
+		btn.onclick = function(){ expandBlock(this.id); };
+		btn.innerHTML = "Expandir/Colapsar Video";
+		
+		//insertamos todo
 		var lastItem = all[i].nextSibling;
 		while(lastItem.nextSibling != null)
 		{
@@ -85,6 +132,8 @@ for(var i = 0, max = all.length; i < max; i++)
 		
 		div.appendChild(iframe);
 		parent.insertBefore(div, lastItem.previousSibling);
+		parent.insertBefore(btn, div);
+
 		
 	}	    
 }

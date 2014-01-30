@@ -17,3 +17,6 @@ Version 1.1
 
 Version 1.1.1
 - Bugfixes/formatting.
+
+Version 1.1.2
+- Videos ahora están colapsados por defecto, y se agrega boton para expandir/colapsar.
