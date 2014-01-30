@@ -22,4 +22,7 @@ Version 1.1.2
 - Videos ahora estan colapsados por defecto, y se agrega boton para expandir/colapsar.
 
 Version 1.1.3
-- Se agregan botones bajo las imagenes que permiten cambiar el tama�o de la imagen (agrandan solo si son mas grandes que el valor actual).
+- Se agregan botones bajo las imagenes que permiten cambiar el tamaño de la imagen (agrandan solo si son mas grandes que el valor actual).
+
+Versión 1.1.3b
+- Se ajusta el tamaño de las imgs y el texto del boton de videos.
