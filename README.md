@@ -24,5 +24,5 @@ Version 1.1.2
 Version 1.1.3
 - Se agregan botones bajo las imagenes que permiten cambiar el tamaño de la imagen (agrandan solo si son mas grandes que el valor actual).
 
-Versión 1.1.3b
+Versión 1.1.3.1
 - Se ajusta el tamaño de las imgs y el texto del boton de videos.
