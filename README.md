@@ -26,3 +26,11 @@ Version 1.1.3
 
 Versión 1.1.3.1
 - Se ajusta el tamaño de las imgs y el texto del boton de videos.
+
+Versión 1.2.5.0
+- Se incluye el commit 0fb2892 de https://github.com/MALLER-LAGOON.
+	- Elimina botones debajo de imagenes.
+	- El script ahora funciona para imagenes con extensiones en mayúsculas.
+- Bugfixes.
+- Se implementa el script de conversión de LaTeX a MathJax creado por Rodolfo Gutiérrez Romo.
+- Se implementa barra de configuración en la parte superior de la página de U-Cursos, para modificación de tamaño de imagenes y activación del script que convierte LaTeX a MathJax.
