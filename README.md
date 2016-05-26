@@ -34,3 +34,6 @@ Versión 1.2.5.0
 - Bugfixes.
 - Se implementa el script de conversión de LaTeX a MathJax creado por Rodolfo Gutiérrez Romo.
 - Se implementa barra de configuración en la parte superior de la página de U-Cursos, para modificación de tamaño de imagenes y activación del script que convierte LaTeX a MathJax.
+
+Versión 1.3.0.0
+- MARKDOWN! Extensión ahora parsea comentarios escritos en formato markdown.

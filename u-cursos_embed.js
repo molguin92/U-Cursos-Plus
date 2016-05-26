@@ -1,5 +1,5 @@
-/* 
-Script encargado de buscar enlaces a imagenes y videos en YouTube en la pagina e insertarlas 
+/*
+Script encargado de buscar enlaces a imagenes y videos en YouTube en la pagina e insertarlas
 Parte de la extension U-Cursos +.
 
 Autor: Arachnid92
@@ -20,12 +20,49 @@ function expandBlock(btn_id)
     if (div.style.display == 'block')
     {
         div.style.display = 'none';
-    } 
+    }
     else if (div.style.display == 'none')
     {
         div.style.display = 'block';
     }
 }
+
+function markdowninject()
+{
+	var converter = new showdown.Converter();
+	showdown.setOption('ghCodeBlocks', false);
+	// encontramos todos los comentarios:
+	var textelems = document.getElementsByClassName('texto');
+	for (var i = 0, max = textelems.length; i < max; i++)
+	{
+		// cada comentario puede tener múltiples bloques de texto
+		// ya que éstos se separan por <br> tags.
+		for(var j = 0, maxj = textelems[i].childNodes.length; j < maxj; j++)
+		{
+			// la condición de largo es porque U-Cursos agrega padding
+			if(textelems[i].childNodes[j].nodeName == "#text" &&
+				textelems[i].childNodes[j].nodeValue.length > 2)
+			{
+				// aquí creamos un nuevo elemento con el texto parseado,
+				// y reemplazamos el texto antiguo.
+				span = document.createElement('span');
+
+				// la regex elimina los espacios adelante del texto.
+				//esto se necesita para la primera linea de los comentarios,
+				// ya que vienen con un padding estúpido.
+				var text = converter.makeHtml(textelems[i].childNodes[j].nodeValue.replace(/^\s+|$/gm,''))
+
+				//la regex a continuación elimina los tags <p></p>
+				span.innerHTML = text.replace(/(<p[^>]+?>|<p>|<\/p>)/img, "");
+				
+				textelems[i].insertBefore(span, textelems[i].childNodes[j]);
+				textelems[i].removeChild(textelems[i].childNodes[j+1])
+			}
+		}
+	}
+}
+
+markdowninject();
 
 /* a continuacion injectamos la barra de configuracion en la parte superior */
 var navbar = document.getElementById('navbar');
@@ -52,9 +89,9 @@ rad_img_small.value = "small";
 rad_img_small.onclick = function () {
 	if ( this.checked )
 	{
-		chrome.storage.sync.set({'imgsize':1}, 
-			function () 
-				{ 
+		chrome.storage.sync.set({'imgsize':1},
+			function ()
+				{
 					var imgSize = 'max-width:200px; max-height:200px;';
 					updateImgSize ( imgSize )
 				});
@@ -69,9 +106,9 @@ rad_img_med.value = "med";
 rad_img_med.onclick = function () {
 	if ( this.checked )
 	{
-		chrome.storage.sync.set({'imgsize':2}, 
-			function () 
-				{ 
+		chrome.storage.sync.set({'imgsize':2},
+			function ()
+				{
 					var imgSize = 'max-width:400px; max-height:400px;';
 					updateImgSize ( imgSize )
 				});
@@ -86,9 +123,9 @@ rad_img_big.value = "big";
 rad_img_big.onclick = function () {
 	if ( this.checked )
 	{
-		chrome.storage.sync.set({'imgsize':3}, 
-			function () 
-				{ 
+		chrome.storage.sync.set({'imgsize':3},
+			function ()
+				{
 					var imgSize = 'max-width:600px; max-height:600px;';
 					updateImgSize ( imgSize )
 				});
@@ -153,19 +190,19 @@ chrome.storage.sync.get({"imgsize":1}, function ( data ) {
 	switch ( data.imgsize )
 	{
 		case 1:
-			
+
 			rad_img_small.checked = true;
 			imgSize = 'max-width:200px; max-height:200px;';
 			break;
-	
+
 		case 2:
-			
+
 			rad_img_med.checked = true;
 			imgSize = 'max-width:400px; max-height:400px;';
 			break;
-	
+
 		case 3:
-			
+
 			rad_img_big.checked = true;
 			imgSize = 'max-width:600px; max-height:600px;';
 			break;
@@ -186,13 +223,13 @@ function updateImgSize ( imgSize )
 			img = document.getElementById ( imgIDArray[i] );
 			img.setAttribute ( 'style', imgSize );
 		}
-				
+
 	});
 }
 
 /* injectImgVid se encarga de insertar las imgs y los videos en primer lugar.
 * Se llama exclusivamente despues de cargar los datos desde chrome.storage */
-function injectImgVid( imgSize ) 
+function injectImgVid( imgSize )
 {
 	var imgIDArray = []; /* arreglo que almacena la id de cada img insertada */
 	var all = document.getElementsByTagName('a');
@@ -222,11 +259,11 @@ function injectImgVid( imgSize )
 		 (href.substr(0, 25).toLowerCase() == 'http://subefotos.com/ver/'
 		 || href.substr(0, 26).toLowerCase() == 'https://subefotos.com/ver/')
 		{
-			var vCode = 0;	     
+			var vCode = 0;
 			if (href.substr(0, 25).toLowerCase() == 'http://subefotos.com/ver/')
 			{
 				vCode = href.substr(26);
-			} 
+			}
 			else if (href.substr(0, 25).toLowerCase() == 'https://subefotos.com/ver/')
 			{
 			vCode = href.substr(26);
@@ -237,8 +274,8 @@ function injectImgVid( imgSize )
 			var img = document.createElement('img');
 			img.setAttribute('src', 'http://fotos.subefotos.com/'.concat(vCode));
 			img.setAttribute('style', imgSize);
-						
-			
+
+
 			// a continuacion nos aseguramos de que la id sea unica
 			var id = href.substr(len - 10, len - 5);
 			while (document.getElementById(id) != null)
@@ -255,17 +292,17 @@ function injectImgVid( imgSize )
 			div.appendChild(img);
 			parent.insertBefore(div_btn, lastItem.previousSibling);
 			parent.insertBefore(div, div_btn);
-			
+
 			imgIDArray.push(id);
-		}        
-		else 
+		}
+		else
 		{
 			var div = document.createElement('div');
 			div.setAttribute('class', 'imagen');
 			var img = document.createElement('img');
 			img.setAttribute('src', href);
 			img.setAttribute('style', imgSize);
-			
+
 			// a continuacion nos aseguramos de que la id sea unica
 			var id = href.substr(len - 10, len - 5);
 			while (document.getElementById(id) != null)
@@ -282,12 +319,12 @@ function injectImgVid( imgSize )
 			div.appendChild(img);
 			parent.insertBefore(div_btn, lastItem.previousSibling);
 			parent.insertBefore(div, div_btn);
-			
+
 			imgIDArray.push(id);
 		}
-		
+
 	    }
-		 
+
 	    else if
 	    //Videos
 	    (href.substr(0, 15) == 'http://youtu.be'
@@ -308,27 +345,27 @@ function injectImgVid( imgSize )
 		if (href.substr(0, 15) == 'http://youtu.be/')
 		{
 		    vCode = href.substr(18);
-		} 
+		}
 		else if (href.substr(0, 16) == 'https://youtu.be/')
 		{
 		    vCode = href.substr(19);
-		} 
+		}
 		else if (href.substr(0, 24) == 'http://youtube.com/embed')
 		{
 		    vCode = href.substr(27);
-		} 
+		}
 		else if (href.substr(0, 25) == 'https://youtube.com/embed')
 		{
 		    vCode = href.substr(28);
-		} 
+		}
 		else if (href.substr(0, 28) == 'http://www.youtube.com/watch')
 		{
 		    vCode = href.substr(31);
-		} 
+		}
 		else if (href.substr(0, 29) == 'https://www.youtube.com/watch')
 		{
 		    vCode = href.substr(32);
-		} 
+		}
 		else
 		{
 		    vCode = href.substr(16);
@@ -363,6 +400,6 @@ function injectImgVid( imgSize )
 		parent.insertBefore(btn, div);
 	    }
 	}
-	
+
 	chrome.storage.sync.set ( {"imgIDArray": imgIDArray }, function () { return; });
 }
