@@ -37,3 +37,6 @@ Versión 1.2.5.0
 
 Versión 1.3.0.0
 - MARKDOWN! Extensión ahora parsea comentarios escritos en formato markdown.
+
+Versión 1.3.0.1
+- Previas actualizaciones habían roto MathJax. Esta versión lo arregla y vuelve a funcionar.
